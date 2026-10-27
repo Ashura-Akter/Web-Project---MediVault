@@ -1,0 +1,127 @@
+MEDIVAULT - PHARMACIST MODULE : BACKEND EXPLAINED
+==================================================
+Backend = PHP + SQL code that runs on the server (XAMPP). The user never sees it.
+Folder: MediVault-Updated-UI-v10/pharmasist/
+
+NOTE: the folders includes/, views/ and assets/ arrived EMPTY in the upload
+(only the folder names came through). So:
+  [READ]  = I read the real code, explanation is exact
+  [MAP]   = explained only from the file map written in medivaultpharmasist.php
+Send the files inside includes/ and I will explain each one line by line.
+
+
+WHERE THE BACKEND FILES ARE
+---------------------------
+pharmasist/medivaultpharmasist.php        entry point            [READ]
+pharmasist/auto_ocr_worker.php            OCR background worker  [READ]
+pharmasist/prescription_view.php          prescription viewer    [READ] (backend part on top, HTML below)
+pharmasist/includes/*.php                 all dashboard logic    [MAP]
+pharmasist/includes/post/*.php            form handlers          [MAP]
+database/queries.php                      shared DB functions    (not uploaded)
+database/ocr_helper.php                   OCR functions          (not uploaded)
+database/.ocr_worker_lock                 lock file (auto-made)
+
+
+1) medivaultpharmasist.php  (ENTRY POINT)  [READ]
+-------------------------------------------------
+- Defines PHARMACIST_ROOT = this folder. Every included file checks it, so
+  nobody can open an include file directly in the browser.
+- Does NOT contain logic itself. It only require_once's the parts in this order:
+    Step 1  includes/pharmacist_auth_profile.php   login check + profile
+    Step 2  includes/pharmacist_helpers.php        helper functions + tab filters
+    Step 3  includes/pharmacist_ajax_counts.php    ?counts=1  -> JSON, then stops
+            includes/pharmacist_ajax_suggest.php   ?suggest=1 -> JSON, then stops
+    Step 4  includes/pharmacist_post_router.php    handles POST forms, redirects
+    Step 5  includes/pharmacist_page_state.php     active tab / search / popups
+            includes/pharmacist_dashboard_stats.php  KPI numbers
+            includes/pharmacist_notification_data.php bell data
+            includes/pharmacist_medicine_query.php   medicine list for Dashboard
+  Only after all of that does it load the frontend files (see 2_FRONTEND file).
+- Order matters: backend first, because POST handlers redirect and AJAX
+  endpoints exit BEFORE any HTML is printed.
+
+
+2) includes/ files  [MAP - purpose only]
+-------------------------------------------------
+pharmacist_auth_profile.php   starts session, checks user is a logged-in and
+                              APPROVED pharmacist, loads pharmacist + pharmacy
+                              profile, and triggers the auto OCR worker.
+pharmacist_helpers.php        small reusable functions + $res_tab_filters
+                              (SQL WHERE pieces for each reservation tab).
+pharmacist_ajax_counts.php    returns live counters as JSON (?counts=1).
+pharmacist_ajax_suggest.php   returns live search suggestions as JSON (?suggest=1).
+pharmacist_post_router.php    receives every POST form and sends it to one of:
+   post/pharmacist_post_notifications.php         mark bell notifications read
+   post/pharmacist_post_add_stock.php             insert a new stock batch
+   post/pharmacist_post_reservation_actions.php   approve / reject / accept
+   post/pharmacist_post_confirm_cancellation.php  cancel with a reason
+pharmacist_page_state.php     decides active tab, search text, popup flags.
+pharmacist_dashboard_stats.php  KPI numbers (total, low stock, expiring, reserved).
+pharmacist_notification_data.php  notifications for the bell icon.
+pharmacist_medicine_query.php   SQL for the medicine list on Dashboard tab.
+
+
+3) auto_ocr_worker.php  [READ]
+-------------------------------------------------
+Job: automatically check restricted-medicine prescriptions with OCR, so the
+pharmacist does not have to do it by hand.
+
+How it is started
+- From the pharmacist dashboard on page load (limited by a lock file).
+- Manually: CLI  php pharmasist/auto_ocr_worker.php --force
+            URL  .../auto_ocr_worker.php?force=1
+
+Function run_auto_ocr_worker($conn, $force)
+ a) RATE LIMIT: reads database/.ocr_worker_lock (last run time). If less than
+    240 seconds (4 min) ago and not forced -> returns "skipped". Otherwise writes
+    the current time to the lock.
+ b) FIND WORK: selects up to 20 rows where
+       prescriptions.status = 'PENDING_REVIEW'
+       AND reservations.status = 'AWAITING_RX'
+    (joined with pharmacies for the name), oldest upload first.
+ c) For each row:
+    1. Build file path from prescriptions.file_path. Missing file -> kept pending.
+    2. ocr_extract_text_from_file()  -> reads the text from the image/PDF.
+       Error or not ok -> kept pending (or counted as error).
+    3. ocr_match_medicines()  -> finds which known medicines appear in the text.
+    4. Loads what the patient reserved (reservation_items + medicines).
+    5. Compares: any reserved medicine NOT found in OCR text = "missing".
+    6. Checks stock: SUM(quantity_on_hand - reserved_quantity) from
+       inventory_batches for this pharmacy, not expired. Less than 1 = "low stock".
+    7. Decision (inside a DB transaction):
+       - MISSING medicine -> prescription REJECTED, reservation REJECTED
+         (cancellation_reason = PRESCRIPTION_NOT_VALID), notify patient.
+       - OUT OF STOCK     -> both REJECTED (cancellation_reason = OUT_OF_STOCK),
+         notify patient.
+       - ALL OK           -> prescription APPROVED ("Auto-approved by OCR system"),
+         reservation APPROVED, add_restricted_medicine_to_cart() for each item,
+         notify patient "now in your cart".
+       Any exception -> rollback, errors++.
+ d) Returns stats: processed, approved, rejected, kept_pending, errors.
+- At the bottom: if the file is run directly (CLI or browser) it runs the worker
+  and prints the stats as JSON. If it is only included, it just defines the function.
+- Functions used from other files: add_notification(), add_restricted_medicine_to_cart()
+  (database/queries.php) and the two ocr_* functions (database/ocr_helper.php).
+
+
+4) prescription_view.php  [READ]  (backend part = top of file)
+-------------------------------------------------
+Job: lets a pharmacist look at the prescription and see what OCR found.
+Read-only: approve/reject is done from the Pending tab.
+ 1. session_start(); only role PHARMACIST allowed, else 403.
+ 2. Needs ?reservation_id=N, else 400.
+ 3. SQL: loads the reservation + prescription + pharmacy, but ONLY if this
+    pharmacist belongs to that pharmacy (pharmacist_profiles, APPROVED).
+    This stops one pharmacist from opening another pharmacy's prescriptions.
+ 4. SAFE FILE LOOKUP: realpath() must stay inside uploads/prescriptions
+    (blocks ../ path tricks). Falls back to basename() if the stored path is odd.
+ 5. Checks MIME type: only PDF, JPEG, PNG; otherwise 415.
+ 6. If URL has &raw=1 -> sends the file itself to the browser (inline) and exits.
+    The iframe on the left of the page uses this.
+ 7. Otherwise runs OCR live (same two ocr_* functions as the worker).
+ 8. Loads requested items, then sorts into three lists:
+       $foundRequired   requested AND seen by OCR
+       $missingRequired requested but NOT seen
+       $extraMatched    seen by OCR but NOT requested
+ 9. $canAct = reservation status is PENDING or AWAITING_RX (only for the badge).
+ Then the HTML part prints (see the FRONTEND file).

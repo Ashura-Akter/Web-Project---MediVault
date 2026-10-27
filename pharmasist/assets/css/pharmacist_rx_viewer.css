@@ -1,0 +1,15 @@
+/*
+ * MediVault - Pharmacist module
+ * File    : assets/css/pharmacist_rx_viewer.css
+ * Title   : Prescription viewer overlay styles
+ *
+ * FRONTEND (CSS)
+ * Styles of the prescription viewer overlay (!important is used so the overlay always stays on top).
+ */
+
+.rx-viewer-overlay{position:fixed!important;inset:0!important;width:100vw!important;height:100vh!important;background:rgba(90,90,90,.62)!important;display:none!important;align-items:center!important;justify-content:center!important;padding:24px!important;box-sizing:border-box!important;z-index:2147483647!important}
+.rx-viewer-overlay.is-open{display:flex!important}
+.rx-viewer-card{position:relative!important;width:min(980px,94vw)!important;height:min(88vh,820px)!important;background:#bdbdbd!important;border-radius:18px!important;box-shadow:0 20px 60px rgba(0,0,0,.35)!important;padding:16px!important;box-sizing:border-box!important}
+.rx-viewer-close{position:absolute!important;right:8px!important;top:6px!important;width:34px!important;height:34px!important;border:0!important;border-radius:50%!important;background:#fff!important;color:#222!important;font-size:24px!important;line-height:30px!important;cursor:pointer!important;z-index:2!important;box-shadow:0 2px 8px rgba(0,0,0,.18)!important}
+.rx-viewer-close:hover{background:#f3f4f6!important}
+#rxViewerFrame{display:block!important;width:100%!important;height:100%!important;border:0!important;border-radius:10px!important;background:#fff!important}

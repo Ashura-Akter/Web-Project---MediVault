@@ -1,0 +1,4 @@
+[2026-10-02 11:06:47] mail() failed for khan1@gmail.com. SMTP is not configured.
+[2026-10-02 11:06:47] OTP for khan1@gmail.com = 858698
+[2026-10-04 07:32:57] mail() failed for gazziman@gmail.com. SMTP is not configured.
+[2026-10-04 07:32:58] OTP for gazziman@gmail.com = 532192

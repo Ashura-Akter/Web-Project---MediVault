@@ -1,0 +1,2326 @@
+* {
+  box-sizing: border-box
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #151515;
+  background: #ececec;
+  font-size: 12px
+}
+
+body {
+  overflow-x: hidden
+}
+
+.topbar {
+  height: 58px;
+  background: #fff;
+  border-bottom: 1px solid #d8d8d8;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 26px
+}
+
+.brand-mini {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 9px;
+  color: #777
+}
+
+.brand-mini strong {
+  font-size: 11px;
+  color: #111
+}
+
+.brand-plus {
+  width: 19px;
+  height: 19px;
+  border-radius: 6px;
+  background: #078f86;
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: bold
+}
+
+.top-user {
+  display: flex;
+  align-items: center;
+  gap: 8px
+}
+
+.bell {
+  font-size: 12px;
+  color: #078f86
+}
+
+.avatar {
+  width: 21px;
+  height: 21px;
+  border-radius: 50%;
+  background: #078f86;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+  font-weight: bold
+}
+
+.user-name {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.05
+}
+
+.user-name strong {
+  font-size: 9px
+}
+
+.user-name small {
+  font-size: 7px;
+  color: #078f86
+}
+
+.chevron {
+  font-size: 12px;
+  color: #888
+}
+
+.app-shell {
+  display: flex;
+  min-height: calc(100vh - 58px)
+}
+
+.sidebar {
+  width: 126px;
+  flex: 0 0 126px;
+  background: #f8f8f8;
+  border-right: 1px solid #d8d8d8;
+  padding: 12px 12px 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start
+}
+
+.sidebar nav {
+  display: flex;
+  flex-direction: column;
+  gap: 8px
+}
+
+.side-link,
+.logout {
+  min-height: 29px;
+  border-radius: 14px;
+  text-decoration: none;
+  color: #222;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 12px;
+  font-size: 10px;
+  border: 0;
+  width: 100%;
+  background: #fff;
+  cursor: pointer
+}
+
+.side-link.active {
+  background: #cfeae7
+}
+
+.nav-icon {
+  width: 13px;
+  text-align: center;
+  font-size: 11px
+}
+
+.branch-nav {
+  position: relative
+}
+
+.branch-toggle {
+  justify-content: flex-start
+}
+
+.branch-arrow {
+  margin-left: auto;
+  font-size: 10px
+}
+
+.branch-menu {
+  display: none;
+  margin: 5px 0 0 12px;
+  padding: 4px;
+  border-left: 1px solid #c7dcd9;
+  background: #fff;
+  border-radius: 0 7px 7px 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, .06)
+}
+
+.branch-menu.open {
+  display: flex;
+  flex-direction: column;
+  gap: 2px
+}
+
+.branch-menu a {
+  color: #333;
+  text-decoration: none;
+  font-size: 8px;
+  line-height: 1.2;
+  padding: 7px 6px;
+  border-radius: 5px
+}
+
+.branch-menu a:hover,
+.branch-menu a.selected {
+  background: #e2f2f0;
+  color: #078f86
+}
+
+.content {
+  flex: 1;
+  min-width: 0;
+  padding: 20px 24px 30px;
+  background: #ececec
+}
+
+.search-row {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 11px
+}
+
+.search-form {
+  width: min(650px, 80%);
+  display: flex
+}
+
+.search {
+  width: 100%;
+  height: 37px;
+  background: #fff;
+  border: 1px solid #d1d1d1;
+  border-radius: 9px;
+  padding: 0 14px;
+  outline: none;
+  font-size: 10px
+}
+
+.search:focus {
+  border-color: #078f86
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: center;
+  margin: 0 auto 14px;
+  max-width: 1450px
+}
+
+.filter {
+  border: 1px solid #d2d2d2;
+  border-radius: 12px;
+  background: #fff;
+  padding: 5px 10px;
+  text-decoration: none;
+  color: #111;
+  font-size: 8px;
+  white-space: nowrap
+}
+
+.filter.active {
+  background: #078f86;
+  color: #fff;
+  border-color: #078f86
+}
+
+.result-count {
+  width: min(1450px, 100%);
+  margin: 0 auto 9px;
+  font-size: 8px;
+  color: #666
+}
+
+.grid {
+  width: min(1450px, 100%);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px
+}
+
+.card {
+  background: #fff;
+  border-radius: 11px;
+  padding: 11px;
+  min-width: 0;
+  min-height: 202px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, .025);
+  display: flex;
+  flex-direction: column
+}
+
+.card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 7px
+}
+
+.category {
+  font-size: 8px;
+  color: #666;
+  line-height: 1.2
+}
+
+.price {
+  font-size: 9px;
+  font-weight: bold;
+  white-space: nowrap
+}
+
+.med-name {
+  font-size: 11px;
+  font-weight: bold;
+  margin: 3px 0 4px;
+  line-height: 1.15;
+  min-height: 25px
+}
+
+.stock-line {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  flex-wrap: wrap;
+  font-size: 7px;
+  color: #777;
+  margin: 2px 0
+}
+
+.stock,
+.low {
+  border-radius: 4px;
+  padding: 3px 5px;
+  white-space: nowrap
+}
+
+.stock {
+  background: #dff3ef;
+  color: #087f77
+}
+
+.low {
+  background: #fff0d6;
+  color: #b66a00
+}
+
+.expiry {
+  color: #777
+}
+
+.qty {
+  margin-left: auto;
+  white-space: nowrap
+}
+
+.desc {
+  font-size: 7.5px;
+  color: #777;
+  line-height: 1.25;
+  min-height: 32px;
+  max-height: 32px;
+  overflow: hidden;
+  margin-top: 4px
+}
+
+.pharmacy-line {
+  margin-top: 5px;
+  min-height: 31px;
+  font-size: 7.5px;
+  color: #4d5c5a;
+  line-height: 1.25;
+  display: flex;
+  align-items: flex-start;
+  gap: 4px
+}
+
+.pharmacy-label {
+  font-weight: bold;
+  color: #2f4845;
+  white-space: nowrap
+}
+
+.pharmacy-badge {
+  display: inline-block;
+  background: #e5f1ef;
+  color: #3d625e;
+  border: 1px solid #cfe4e1;
+  border-radius: 5px;
+  padding: 3px 5px;
+  line-height: 1.1;
+  max-width: 70%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap
+}
+
+.restricted-line {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  min-height: 19px;
+  margin-top: 2px
+}
+
+.restricted-label {
+  display: inline-block;
+  background: #fff;
+  color: #e45757;
+  border: 1px solid #ef6a6a;
+  border-radius: 5px;
+  padding: 3px 6px;
+  font-size: 7px;
+  font-weight: bold;
+  position: relative;
+  overflow: hidden
+}
+
+.restricted-label:before {
+  content: "";
+  position: absolute;
+  left: -3px;
+  right: -3px;
+  top: 48%;
+  height: 1px;
+  background: #df4848;
+  transform: rotate(-10deg)
+}
+
+.card-bottom {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  margin-top: auto;
+  padding-top: 7px
+}
+
+.heart {
+  width: 28px;
+  height: 25px;
+  flex: 0 0 28px;
+  border: 1px solid #b9d8d5;
+  border-radius: 7px;
+  background: #fff;
+  color: #078f86;
+  cursor: pointer;
+  font-size: 15px;
+  line-height: 1
+}
+
+.heart:hover {
+  background: #e7f5f3
+}
+
+.add-btn,
+.primary-btn {
+  border: 0;
+  background: #078f86;
+  color: #fff;
+  border-radius: 13px;
+  min-height: 25px;
+  padding: 0 12px;
+  font-size: 8px;
+  font-weight: bold;
+  cursor: pointer
+}
+
+.add-btn {
+  flex: 1
+}
+
+.add-btn:disabled {
+  opacity: .55;
+  cursor: not-allowed
+}
+
+.panel {
+  background: #fff;
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 12px
+}
+
+.panel h2 {
+  margin: 0 0 8px;
+  font-size: 14px
+}
+
+.empty {
+  padding: 35px;
+  text-align: center;
+  color: #888;
+  background: #fff;
+  border-radius: 10px
+}
+
+.table {
+  width: min(1450px, 100%);
+  margin: 0 auto;
+  border-collapse: collapse;
+  font-size: 8px;
+  background: #fff
+}
+
+.table th {
+  background: #fff;
+  font-weight: normal
+}
+
+.table th,
+.table td {
+  padding: 8px;
+  border-bottom: 1px solid #eee;
+  text-align: left;
+  vertical-align: middle
+}
+
+.table tbody tr:nth-child(even) {
+  background: #dedede
+}
+
+.table tbody tr:nth-child(odd) {
+  background: #eeeeee
+}
+
+.status {
+  border-radius: 8px;
+  padding: 3px 6px;
+  font-size: 7px;
+  background: #e8f5f2;
+  color: #087f77;
+  white-space: nowrap
+}
+
+.reorder-btn {
+  background: #ff7566;
+  color: #fff;
+  border: 0;
+  border-radius: 10px;
+  padding: 5px 8px;
+  font-size: 7px;
+  cursor: pointer;
+  white-space: nowrap
+}
+
+.cart-page {
+  min-height: calc(100vh - 90px);
+  display: flex;
+  flex-direction: column;
+  width: min(1150px, 100%);
+  margin: 0 auto
+}
+
+.cart-page h1 {
+  font-size: 26px;
+  font-weight: 400;
+  margin: 10px 0 16px
+}
+
+.cart-table-wrap {
+  width: 100%;
+  overflow-x: auto
+}
+
+.cart-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 7px;
+  font-size: 9px
+}
+
+.cart-table th {
+  background: #fff;
+  padding: 8px 11px;
+  text-align: left;
+  font-weight: normal
+}
+
+.cart-table td {
+  padding: 8px 11px;
+  background: #d9d9d9
+}
+
+.cart-bottom {
+  margin-top: auto;
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 20px
+}
+
+.checkout-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 86px;
+  height: 29px;
+  border-radius: 15px;
+  background: #078f86;
+  color: #fff;
+  font-size: 9px;
+  text-decoration: none
+}
+
+.remove-btn {
+  border: 1px solid #e7a4a0;
+  background: #fff;
+  color: #c85c55;
+  border-radius: 12px;
+  min-height: 25px;
+  padding: 0 11px;
+  font-size: 8px;
+  font-weight: bold;
+  cursor: pointer
+}
+
+.remove-btn:hover {
+  background: #fff4f3
+}
+
+.shelf-actions {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  width: 100%
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px
+}
+
+.field {
+  margin-bottom: 10px
+}
+
+.field label {
+  display: block;
+  font-size: 8px;
+  color: #555;
+  margin-bottom: 4px
+}
+
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  border: 1px solid #d7d7d7;
+  border-radius: 7px;
+  padding: 7px;
+  font-size: 9px;
+  outline: none;
+  background: #fff
+}
+
+.field textarea {
+  min-height: 70px;
+  resize: vertical
+}
+
+.message {
+  padding: 8px 10px;
+  border-radius: 7px;
+  background: #fff0f0;
+  color: #b3261e;
+  font-size: 8px;
+  margin-bottom: 10px
+}
+
+.success {
+  background: #e9f7f4;
+  color: #087f77
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, .25);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 55px;
+  z-index: 1000
+}
+
+.modal {
+  width: 430px;
+  max-width: calc(100% - 30px);
+  background: #fff;
+  border-radius: 20px;
+  padding: 28px;
+  text-align: center;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, .2)
+}
+
+.modal h2 {
+  font-size: 17px;
+  margin: 0 0 10px
+}
+
+.modal p {
+  font-size: 11px;
+  line-height: 1.35;
+  margin: 4px 0
+}
+
+.check {
+  font-size: 44px;
+  line-height: 1;
+  margin: 10px
+}
+
+.branch-title {
+  width: min(1450px, 100%);
+  margin: 2px auto 10px
+}
+
+.branch-title h1 {
+  font-size: 20px;
+  font-weight: 400;
+  margin: 0 0 3px
+}
+
+.branch-title p {
+  font-size: 8px;
+  color: #777;
+  margin: 0
+}
+
+@media (min-width:1500px) {
+  .grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr))
+  }
+}
+
+@media (min-width:900px) and (max-width:1499px) {
+  .grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr))
+  }
+}
+
+@media (min-width:600px) and (max-width:899px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr))
+  }
+}
+
+@media (max-width:599px) {
+  .grid {
+    grid-template-columns: 1fr
+  }
+
+  .sidebar {
+    width: 88px;
+    flex-basis: 88px;
+    padding: 10px 7px
+  }
+
+  .side-link span:not(.nav-icon),
+  .logout {
+    font-size: 0
+  }
+
+  .side-link {
+    justify-content: center;
+    padding: 0
+  }
+
+  .branch-arrow {
+    display: none
+  }
+
+  .content {
+    padding: 14px 10px
+  }
+
+  .search-form {
+    width: 100%
+  }
+
+  .filters {
+    justify-content: flex-start
+  }
+
+  .form-row {
+    grid-template-columns: 1fr
+  }
+
+  .table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap
+  }
+
+  .topbar {
+    padding: 0 10px
+  }
+
+  .user-name {
+    display: none
+  }
+
+  .brand-mini span:last-child {
+    display: none
+  }
+}
+
+/* Fixed MediVault patient shell */
+.topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 5000
+}
+
+.brand-home {
+  color: inherit;
+  text-decoration: none
+}
+
+.top-user-wrap {
+  position: relative
+}
+
+.top-user {
+  border: 0;
+  background: transparent;
+  cursor: pointer
+}
+
+.common-profile-menu {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 34px;
+  width: 190px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, .12);
+  padding: 6px;
+  z-index: 6000
+}
+
+.common-profile-menu.show {
+  display: block
+}
+
+.common-profile-menu a {
+  display: block;
+  text-decoration: none;
+  color: #222;
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 10px;
+  font-weight: bold
+}
+
+.common-profile-menu a:hover {
+  background: #eaf6f4;
+  color: #078f86
+}
+
+.common-profile-menu .logout-menu {
+  color: #e33
+}
+
+.app-shell {
+  margin-top: 68px
+}
+
+.sidebar {
+  position: fixed;
+  top: 68px;
+  bottom: 0;
+  left: 0;
+  z-index: 4000;
+  height: calc(100vh - 68px);
+  overflow-y: auto
+}
+
+.content {
+  margin-left: 126px;
+  min-height: calc(100vh - 68px)
+}
+
+@media(max-width:599px) {
+  .sidebar {
+    width: 88px
+  }
+
+  .content {
+    margin-left: 88px
+  }
+}
+
+/* Universal MediVault top navigation - shared by Patient, Pharmacist and Admin */
+.mv-topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 68px;
+  background: #fff;
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 32px;
+  z-index: 5000
+}
+
+.mv-brand {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  text-decoration: none;
+  color: #111
+}
+
+.mv-brand-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 9px;
+  background: #078f86;
+  color: #fff;
+  display: grid;
+  place-items: center;
+  font-size: 22px;
+  font-weight: 800
+}
+
+.mv-brand-name {
+  font-size: 21px;
+  font-weight: 800;
+  color: #111
+}
+
+.mv-brand-sub {
+  font-size: 13px;
+  color: #777;
+  font-weight: 400
+}
+
+.mv-profile-wrap {
+  position: relative
+}
+
+.mv-profile-btn {
+  border: 0;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  cursor: pointer;
+  padding: 0
+}
+
+.mv-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #078f86;
+  color: #fff;
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+  font-size: 14px
+}
+
+.mv-user-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.12;
+  min-width: 100px
+}
+
+.mv-user-text strong {
+  font-size: 14px;
+  text-align: left;
+  color: #111
+}
+
+.mv-user-text small {
+  font-size: 11px;
+  text-align: left;
+  color: #078f86;
+  margin-top: 3px
+}
+
+.mv-chevron {
+  font-size: 11px;
+  color: #222;
+  margin-left: 2px
+}
+
+.mv-profile-menu {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 48px;
+  width: 220px;
+  background: #fff;
+  border: 1px solid #e2e2e2;
+  border-radius: 14px;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, .13);
+  padding: 7px;
+  z-index: 6000
+}
+
+.mv-profile-menu.show {
+  display: block
+}
+
+.mv-profile-menu a {
+  display: block;
+  padding: 11px 13px;
+  border-radius: 9px;
+  text-decoration: none;
+  color: #222;
+  font-weight: 600;
+  font-size: 13px
+}
+
+.mv-profile-menu a:hover {
+  background: #f3f8f7;
+  color: #078f86
+}
+
+.mv-profile-menu .mv-logout-menu {
+  color: #e33
+}
+
+.mv-profile-menu .mv-logout-menu:hover {
+  color: #d22;
+  background: #fff2f2
+}
+
+@media(max-width:650px) {
+  .mv-topbar {
+    padding: 0 14px
+  }
+
+  .mv-brand-sub {
+    display: none
+  }
+
+  .mv-user-text {
+    min-width: 0
+  }
+
+  .mv-user-text strong,
+  .mv-user-text small {
+    display: none
+  }
+}
+
+
+/* Patient medicine cards: readable typography, compact equal sizing, and one-line pharmacy. */
+.content .grid .card {
+  height: 232px;
+  min-height: 232px;
+  padding: 12px;
+}
+
+.content .grid .card .category {
+  font-size: 10px
+}
+
+.content .grid .card .price {
+  font-size: 12px
+}
+
+.content .grid .card .med-name {
+  font-size: 14px;
+  line-height: 1.15;
+  min-height: 32px;
+  margin: 3px 0 3px
+}
+
+.content .grid .card .medicine-meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+  overflow: hidden;
+  margin: 0 0 5px;
+  font-size: 10px;
+  color: #5d6867
+}
+
+.content .grid .card .medicine-meta span {
+  overflow: hidden;
+  text-overflow: ellipsis
+}
+
+.content .grid .card .medicine-meta span:not(:last-child)::after {
+  content: '•';
+  margin-left: 6px;
+  color: #a0aaa8
+}
+
+.content .grid .card .stock-line {
+  font-size: 9px;
+  gap: 7px;
+  margin: 2px 0
+}
+
+.content .grid .card .stock,
+.content .grid .card .low {
+  padding: 4px 6px;
+  font-size: 9px
+}
+
+.content .grid .card .expiry,
+.content .grid .card .qty {
+  font-size: 9px
+}
+
+.content .grid .card .desc {
+  font-size: 9.5px;
+  line-height: 1.25;
+  min-height: 26px;
+  max-height: 26px;
+  margin-top: 4px
+}
+
+.content .grid .card .pharmacy-line {
+  font-size: 9.5px;
+  min-height: 24px;
+  height: 24px;
+  margin-top: 5px;
+  align-items: center;
+  gap: 5px;
+  white-space: nowrap
+}
+
+.content .grid .card .pharmacy-badge {
+  font-size: 9.5px;
+  padding: 4px 7px;
+  max-width: none;
+  overflow: visible;
+  text-overflow: clip;
+  white-space: nowrap
+}
+
+.content .grid .card .restricted-line {
+  min-height: 18px;
+  height: 18px;
+  margin-top: 1px
+}
+
+.content .grid .card .restricted-label {
+  font-size: 9px;
+  padding: 3px 6px
+}
+
+.content .grid .card .card-bottom {
+  margin-top: auto
+}
+
+.content .grid {
+  gap: 10px
+}
+
+@media (max-width:899px) {
+  .content .grid .card {
+    height: auto;
+    min-height: 232px
+  }
+}
+
+
+/* =========================================================
+   MediVault UI standardization - September 2026
+   One shared typography/card/navigation system for patient pages.
+   ========================================================= */
+:root {
+  --mv-teal: #078f86;
+  --mv-bg: #ececec;
+  --mv-text: #151515;
+  --mv-muted: #68716f;
+  --mv-card-width: 398px;
+  --mv-card-height: 458px;
+}
+
+html,
+body {
+  font-size: 14px
+}
+
+/* Fixed global navigation */
+.mv-topbar {
+  height: 68px !important;
+  padding: 0 32px !important
+}
+
+.mv-brand-name {
+  font-size: 21px !important
+}
+
+.mv-brand-sub {
+  font-size: 13px !important
+}
+
+.mv-user-text strong {
+  font-size: 14px !important
+}
+
+.mv-user-text small {
+  font-size: 11px !important
+}
+
+.mv-profile-menu a {
+  font-size: 13px !important
+}
+
+/* Left navigation */
+.sidebar {
+  width: 160px !important;
+  flex-basis: 160px !important;
+  padding: 16px 13px 18px !important;
+  top: 68px !important
+}
+
+.sidebar nav {
+  gap: 9px !important
+}
+
+.side-link,
+.logout {
+  min-height: 38px !important;
+  border-radius: 19px !important;
+  padding: 0 13px !important;
+  gap: 9px !important;
+  font-size: 14px !important
+}
+
+.nav-icon {
+  width: 17px !important;
+  font-size: 14px !important
+}
+
+.branch-arrow {
+  width: 0 !important;
+  height: 0 !important;
+  border-left: 5px solid transparent !important;
+  border-right: 5px solid transparent !important;
+  border-top: 7px solid #222 !important;
+  margin-left: auto !important;
+  font-size: 0 !important;
+  flex: 0 0 auto !important
+}
+
+.branch-menu {
+  margin: 6px 0 0 14px !important;
+  padding: 5px !important
+}
+
+.branch-menu a {
+  font-size: 13px !important;
+  padding: 8px 7px !important
+}
+
+/* Main content */
+.app-shell {
+  margin-top: 68px !important
+}
+
+.content {
+  margin-left: 160px !important;
+  min-height: calc(100vh - 68px) !important;
+  padding: 20px 28px 34px !important
+}
+
+.search-row {
+  position: sticky !important;
+  top: 68px !important;
+  z-index: 3500 !important;
+  background: var(--mv-bg) !important;
+  padding: 4px 0 12px !important;
+  margin: 0 auto 12px !important
+}
+
+.search-form {
+  width: min(760px, 90%) !important
+}
+
+.search {
+  height: 46px !important;
+  border-radius: 12px !important;
+  padding: 0 17px !important;
+  font-size: 15px !important
+}
+
+.filters {
+  gap: 8px !important;
+  margin-bottom: 17px !important
+}
+
+.filter {
+  border-radius: 16px !important;
+  padding: 7px 13px !important;
+  font-size: 13px !important
+}
+
+.result-count {
+  font-size: 13px !important;
+  margin-bottom: 12px !important
+}
+
+.branch-title {
+  margin: 4px auto 12px !important
+}
+
+.branch-title h1 {
+  font-size: 25px !important
+}
+
+.branch-title p {
+  font-size: 13px !important
+}
+
+/* One exact card system across Browse, Shelf and branch medicine pages. */
+.grid {
+  width: min(1240px, 100%) !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  gap: 16px !important
+}
+
+.content .grid .card {
+  width: 100% !important;
+  height: var(--mv-card-height) !important;
+  min-height: var(--mv-card-height) !important;
+  padding: 17px !important;
+  border-radius: 18px !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, .10) !important;
+  overflow: hidden !important;
+}
+
+.content .grid .card .card-top {
+  min-height: 20px !important;
+  gap: 10px !important
+}
+
+.content .grid .card .category {
+  font-size: 14px !important;
+  color: #5f6866 !important;
+  line-height: 1.2 !important
+}
+
+.content .grid .card .price {
+  font-size: 19px !important;
+  font-weight: 700 !important
+}
+
+.content .grid .card .med-name-row {
+  display: flex !important;
+  align-items: baseline !important;
+  justify-content: space-between !important;
+  gap: 12px !important;
+  margin: 7px 0 6px !important;
+  min-height: 27px !important
+}
+
+.content .grid .card .med-name {
+  font-size: 19px !important;
+  font-weight: 700 !important;
+  line-height: 1.15 !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  flex: 1 !important
+}
+
+.content .grid .card .medicine-strength {
+  font-size: 14px !important;
+  color: #777 !important;
+  white-space: nowrap !important;
+  flex: 0 0 auto !important
+}
+
+.content .grid .card .stock-line {
+  display: grid !important;
+  grid-template-columns: auto 1fr auto !important;
+  align-items: center !important;
+  gap: 12px !important;
+  font-size: 13px !important;
+  margin: 2px 0 6px !important;
+  min-height: 27px !important
+}
+
+.content .grid .card .stock,
+.content .grid .card .low {
+  padding: 5px 8px !important;
+  border-radius: 6px !important;
+  font-size: 13px !important
+}
+
+.content .grid .card .expiry {
+  font-size: 13px !important;
+  text-align: center !important;
+  white-space: nowrap !important
+}
+
+.content .grid .card .qty {
+  font-size: 13px !important;
+  margin-left: 0 !important;
+  white-space: nowrap !important;
+  text-align: right !important
+}
+
+.content .grid .card .medicine-meta {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 18px !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  margin: 0 0 7px !important;
+  font-size: 13px !important;
+  color: #606967 !important;
+  min-height: 20px !important
+}
+
+.content .grid .card .medicine-meta strong {
+  font-weight: 700 !important;
+  color: #3d4644 !important;
+  margin-right: 3px !important
+}
+
+.content .grid .card .medicine-meta span {
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  min-width: 0 !important
+}
+
+.content .grid .card .medicine-meta span:not(:last-child)::after {
+  display: none !important
+}
+
+.content .grid .card .pharmacy-line {
+  font-size: 13px !important;
+  min-height: 29px !important;
+  height: 29px !important;
+  margin: 2px 0 4px !important;
+  align-items: center !important;
+  gap: 8px !important;
+  white-space: nowrap !important
+}
+
+.content .grid .card .pharmacy-label {
+  font-size: 13px !important;
+  font-weight: 700 !important
+}
+
+.content .grid .card .pharmacy-badge {
+  font-size: 13px !important;
+  padding: 5px 8px !important;
+  max-width: 60% !important;
+  border-radius: 6px !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important
+}
+
+.content .grid .card .desc {
+  font-size: 13px !important;
+  line-height: 1.3 !important;
+  min-height: 34px !important;
+  max-height: 34px !important;
+  margin: 2px 0 0 !important;
+  color: #6e7674 !important
+}
+
+.content .grid .card .restricted-line {
+  min-height: 25px !important;
+  height: 25px !important;
+  margin: 1px 0 0 !important
+}
+
+.content .grid .card .restricted-label {
+  font-size: 12px !important;
+  padding: 4px 8px !important;
+  border-radius: 6px !important
+}
+
+.content .grid .card .card-bottom {
+  gap: 10px !important;
+  padding-top: 7px !important
+}
+
+.content .grid .card .heart {
+  width: 36px !important;
+  height: 32px !important;
+  flex: 0 0 36px !important;
+  border-radius: 8px !important;
+  font-size: 21px !important
+}
+
+.content .grid .card .add-btn {
+  min-height: 32px !important;
+  border-radius: 17px !important;
+  padding: 0 16px !important;
+  font-size: 13px !important
+}
+
+.content .grid .card .remove-btn {
+  min-height: 32px !important;
+  border-radius: 17px !important;
+  padding: 0 16px !important;
+  font-size: 13px !important
+}
+
+/* The cards on smaller screens stay identical in height and visual proportions. */
+@media (max-width:1199px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important
+  }
+}
+
+@media (max-width:760px) {
+  .sidebar {
+    width: 108px !important;
+    flex-basis: 108px !important
+  }
+
+  .content {
+    margin-left: 108px !important;
+    padding: 16px 12px 28px !important
+  }
+
+  .grid {
+    grid-template-columns: 1fr !important
+  }
+
+  .search-form {
+    width: 100% !important
+  }
+}
+
+@media (max-width:599px) {
+  .sidebar {
+    width: 0 !important;
+    flex-basis: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    overflow: hidden !important
+  }
+
+  .content {
+    margin-left: 0 !important
+  }
+}
+
+/* Browse toolbar: keep search, filter and category navigation together while scrolling. */
+.browse-toolbar {
+  position: sticky !important;
+  top: 68px !important;
+  z-index: 3400 !important;
+  background: var(--mv-bg, #ececec) !important;
+  padding: 4px 0 10px !important;
+  margin: 0 auto 10px !important;
+}
+
+.browse-toolbar .search-row {
+  position: static !important;
+  padding: 0 !important;
+  margin: 0 auto 10px !important;
+  display: flex !important;
+  justify-content: center !important;
+}
+
+.browse-toolbar .search-form {
+  width: min(920px, 96%) !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+}
+
+.browse-toolbar .search {
+  flex: 1 1 auto !important;
+  min-width: 0 !important;
+}
+
+.sort-filter-wrap {
+  position: relative !important;
+  flex: 0 0 auto !important;
+  min-width: 150px !important;
+  height: 46px !important;
+}
+
+.sort-filter-wrap::after {
+  content: "";
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 7px solid #222;
+  transform: translateY(-35%);
+  pointer-events: none;
+}
+
+.sort-filter {
+  display: block !important;
+  width: 100% !important;
+  height: 46px !important;
+  min-width: 150px !important;
+  border: 1px solid #d1d1d1 !important;
+  border-radius: 12px !important;
+  background: #fff !important;
+  color: #222 !important;
+  padding: 0 38px 0 13px !important;
+  font-size: 14px !important;
+  outline: none !important;
+  cursor: pointer !important;
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+}
+
+.sort-filter::-ms-expand {
+  display: none !important
+}
+
+.sort-filter:focus {
+  border-color: var(--mv-teal, #078f86) !important
+}
+
+.browse-toolbar .filters {
+  margin: 0 auto !important;
+  padding: 0 !important;
+}
+
+@media(max-width:760px) {
+  .browse-toolbar .search-form {
+    width: 100% !important;
+    gap: 7px !important
+  }
+
+  .sort-filter-wrap {
+    min-width: 115px !important;
+    height: 46px !important
+  }
+
+  .sort-filter {
+    min-width: 115px !important;
+    font-size: 12px !important;
+    padding: 0 30px 0 8px !important
+  }
+
+  .sort-filter-wrap::after {
+    right: 10px
+  }
+}
+
+/* Inline My Shelf heart state. Saved medicines keep the same button position
+   and use the crossed-heart appearance requested for the active state. */
+.content .grid .card .heart {
+  position: relative;
+  overflow: hidden;
+}
+
+.content .grid .card .heart.saved {
+  background: #dff1ef !important;
+  color: #355d5a !important;
+}
+
+.content .grid .card .heart.saved::after {
+  content: "";
+  position: absolute;
+  left: 2px;
+  top: 50%;
+  width: 38px;
+  height: 2px;
+  background: #ef3340;
+  transform: rotate(-42deg);
+  transform-origin: center;
+  pointer-events: none;
+}
+
+.content .grid .card .heart:disabled {
+  cursor: default;
+}
+
+/* Remove button on My Shelf: match the Add to cart button's footprint */
+.restricted-cart-btn {
+  flex: 1;
+  border: 0;
+  cursor: pointer
+}
+
+.remove-form {
+  flex: 1;
+  display: flex
+}
+
+.remove-btn {
+  transition: background .15s ease, box-shadow .15s ease;
+  flex: 1
+}
+
+.remove-btn:hover {
+  box-shadow: 0 4px 12px rgba(200, 92, 85, .24)
+}
+
+/* Make every non-restricted "Add to cart" button the exact same size as the
+   restricted-medicine "Add to cart" button (both stretch to fill card-bottom). */
+.cart-add-form {
+  flex: 1;
+  display: flex
+}
+
+/* Restricted badge now sits on the same row as the pharmacy name, on the
+   right-hand side, instead of its own line underneath. */
+.pharmacy-line {
+  justify-content: space-between
+}
+
+.pharmacy-line .restricted-label {
+  margin-left: auto;
+  flex: 0 0 auto
+}
+
+/* =========================================================
+   Patient UI polish: hover states, shadows, search icon, live suggestions.
+   Scoped to components used only on patient pages so pharmacist/admin
+   dashboards (which use their own markup) are unaffected.
+   ========================================================= */
+
+/* Medicine cards: soft lift + teal-tinted shadow on hover */
+.content .grid .card {
+  transition: box-shadow .18s ease, transform .18s ease
+}
+
+.content .grid .card:hover {
+  box-shadow: 0 16px 34px rgba(7, 143, 134, .34) !important;
+  transform: translateY(-5px)
+}
+
+/* Left navigation menu items */
+.side-link,
+.logout {
+  transition: background .15s ease, box-shadow .15s ease, color .15s ease
+}
+
+.side-link:hover:not(.active),
+.logout:hover {
+  background: #eaf6f4 !important;
+  box-shadow: 0 3px 10px rgba(7, 143, 134, .20);
+  color: #078f86
+}
+
+.branch-menu a {
+  transition: background .15s ease, box-shadow .15s ease
+}
+
+.branch-menu a:hover {
+  box-shadow: 0 3px 8px rgba(7, 143, 134, .16)
+}
+
+/* Category / Restricted filter pills */
+.filter {
+  transition: background .15s ease, box-shadow .15s ease, border-color .15s ease
+}
+
+.filter:hover:not(.active) {
+  background: #eaf6f4;
+  border-color: #bfe3df;
+  box-shadow: 0 3px 10px rgba(7, 143, 134, .20);
+  color: #078f86
+}
+
+/* Buttons */
+.add-btn,
+.primary-btn {
+  transition: background .15s ease, box-shadow .15s ease
+}
+
+.add-btn:hover:not(:disabled),
+.primary-btn:hover {
+  background: #057c74;
+  box-shadow: 0 4px 12px rgba(7, 143, 134, .28)
+}
+
+.heart {
+  transition: background .15s ease, box-shadow .15s ease
+}
+
+.heart:hover {
+  box-shadow: 0 3px 10px rgba(7, 143, 134, .22)
+}
+
+/* Search bar: magnifying-glass icon + focus glow */
+.search-form {
+  position: relative
+}
+
+.search {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2378837f' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='7'/%3E%3Cline x1='21' y1='21' x2='16.65' y2='16.65'/%3E%3C/svg%3E") !important;
+  background-repeat: no-repeat !important;
+  background-position: 16px center !important;
+  background-size: 17px 17px !important;
+  padding-left: 44px !important;
+}
+
+.search:focus {
+  box-shadow: 0 0 0 3px rgba(7, 143, 134, .14)
+}
+
+/* Live search suggestions dropdown */
+.mv-suggest-box {
+  position: absolute;
+  background: #fff;
+  border: 1px solid #d7e5e3;
+  border-radius: 12px;
+  box-shadow: 0 12px 28px rgba(7, 143, 134, .18);
+  z-index: 4200;
+  overflow: hidden;
+  margin-top: 4px
+}
+
+.mv-suggest-box[hidden] {
+  display: none
+}
+
+.mv-suggest-item {
+  padding: 11px 16px;
+  font-size: 14px;
+  color: #1f2d2b;
+  cursor: pointer;
+  transition: background .12s ease
+}
+
+.mv-suggest-item:hover,
+.mv-suggest-item.active {
+  background: #eaf6f4;
+  color: #057c74
+}
+
+.mv-suggest-item mark {
+  background: none;
+  color: #057c74;
+  font-weight: 800
+}
+
+/* Non-restricted medicine cards: keep the pharmacy badge close to its label. Restricted cards retain the existing spaced layout. */
+.content .grid .card .pharmacy-line:not(:has(.restricted-label)) {
+  justify-content: flex-start !important;
+  gap: 8px !important
+}
+
+
+/* =========================================================
+   View More popup (Order History + Request History) - shared
+   Justified content, round teal X button, animated gradient ring on hover
+   ========================================================= */
+.viewmore-modal {
+  position: relative !important;
+  width: 460px !important;
+  text-align: justify !important;
+  max-height: calc(100vh - 110px);
+  overflow: auto;
+  box-sizing: border-box;
+  padding: 26px 30px 24px !important;
+  border: 1px solid rgba(7, 143, 134, .18);
+}
+
+.viewmore-modal h2 {
+  text-align: center !important;
+  margin: 0 0 18px !important;
+  font-size: 18px !important;
+  font-weight: 700 !important;
+  color: #0f172a;
+}
+
+.viewmore-modal .view-icon {
+  font-weight: 700 !important;
+  margin-right: 6px !important;
+  color: var(--mv-teal, #078f86)
+}
+
+.viewmore-modal .res-line {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: flex-start !important;
+  gap: 18px !important;
+  margin: 0 !important;
+  padding: 9px 0 !important;
+  border-bottom: 1px dashed #dbe7e5 !important;
+  font-size: 14px !important;
+  color: #333 !important;
+  line-height: 1.5 !important;
+  text-align: right !important;
+}
+
+.viewmore-modal .res-label {
+  font-weight: 700 !important;
+  color: #0f172a !important;
+  text-align: left !important;
+  flex: 0 0 auto
+}
+
+.viewmore-modal .res-warning {
+  margin: 0 !important;
+  padding: 9px 0 !important;
+  border-bottom: 1px dashed #dbe7e5 !important;
+  background: transparent !important;
+  color: #333 !important;
+  font-size: 14px !important;
+  line-height: 1.6 !important;
+  font-weight: 400 !important;
+  text-align: justify !important;
+}
+
+.viewmore-modal .res-message {
+  margin-top: 14px !important;
+  padding: 0 !important;
+  background: transparent !important;
+  color: #333 !important;
+  font-size: 14px !important;
+  line-height: 1.65 !important;
+  font-weight: 400 !important;
+  text-align: justify !important;
+}
+
+.viewmore-modal .close-x {
+  position: relative !important;
+  top: auto !important;
+  right: auto !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin: 24px auto 4px !important;
+  width: 54px !important;
+  height: 54px !important;
+  border: 3px solid var(--mv-teal, #078f86) !important;
+  border-radius: 50% !important;
+  background: #fff !important;
+  color: var(--mv-teal, #078f86) !important;
+  font-size: 32px !important;
+  font-weight: 400 !important;
+  line-height: 1 !important;
+  padding: 0 0 3px !important;
+  cursor: pointer !important;
+  box-shadow: 0 6px 16px rgba(7, 143, 134, .18) !important;
+  transition: transform .22s ease, box-shadow .22s ease, color .22s ease !important;
+}
+
+/* running gradient ring (same teal theme), hidden until the popup is hovered */
+.viewmore-modal .close-x::before {
+  content: "" !important;
+  position: absolute !important;
+  inset: -3px !important;
+  border-radius: 50% !important;
+  padding: 3px !important;
+  background: conic-gradient(from 0deg, #078f86, #22d3ee, #5eead4, #0f766e, #14b8a6, #078f86) !important;
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0) !important;
+  -webkit-mask-composite: xor !important;
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0) !important;
+  opacity: 0 !important;
+  transition: opacity .22s ease !important;
+  pointer-events: none !important;
+}
+
+.viewmore-modal:hover .close-x,
+.viewmore-modal .close-x:focus-visible {
+  transform: scale(1.12) !important;
+  color: #0f766e !important;
+  box-shadow: 0 9px 22px rgba(7, 143, 134, .38) !important;
+  outline: none !important;
+}
+
+.viewmore-modal:hover .close-x::before,
+.viewmore-modal .close-x:focus-visible::before {
+  opacity: 1 !important;
+  animation: mvCloseGradientSpin 1.2s linear infinite !important;
+}
+
+@keyframes mvCloseGradientSpin {
+  to {
+    transform: rotate(360deg)
+  }
+}
+
+@media(max-width:520px) {
+  .viewmore-modal {
+    padding: 22px 20px 20px !important
+  }
+}
+
+/* ===== v13: medicine image on every card (zoom on hover) ===== */
+.mv-med-img {
+  position: relative;
+  width: 100%;
+  height: 150px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #eef6f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 0 10px;
+  flex: 0 0 auto
+}
+
+.mv-med-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform .35s ease;
+  transform-origin: center center
+}
+
+.mv-med-img:hover img {
+  transform: scale(1.14)
+}
+
+.mv-med-img-empty svg {
+  width: 64px;
+  height: 64px
+}
+
+.mv-med-img-empty {
+  background: linear-gradient(135deg, #eef6f5, #dff0ee)
+}
+
+/* ===== v13: "More" category dropdown in the patient category bar ===== */
+.filters .filter-more {
+  position: relative;
+  display: inline-block
+}
+
+.filters .filter-more-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  font-family: inherit;
+  color: #111;
+  background: #fff;
+  border: 1px solid #d2d2d2
+}
+
+.filters .filter-more-btn.active {
+  background: #078f86;
+  color: #fff;
+  border-color: #078f86
+}
+
+.filters .filter-more-btn .caret {
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 6px solid currentColor;
+  transition: transform .2s ease
+}
+
+.filters .filter-more.open .caret {
+  transform: rotate(180deg)
+}
+
+.filters .filter-more-menu {
+  display: none;
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  min-width: 190px;
+  max-height: 320px;
+  overflow: auto;
+  background: #fff;
+  border: 1px solid #e2e2e2;
+  border-radius: 12px;
+  box-shadow: 0 10px 26px rgba(0, 0, 0, .15);
+  padding: 6px;
+  z-index: 3600;
+  text-align: left
+}
+
+.filters .filter-more.open .filter-more-menu {
+  display: block
+}
+
+.filters .filter-more-menu a {
+  display: block;
+  padding: 9px 12px;
+  border-radius: 8px;
+  text-decoration: none;
+  color: #222;
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap
+}
+
+.filters .filter-more-menu a:hover {
+  background: #eaf6f4;
+  color: #078f86
+}
+
+.filters .filter-more-menu a.selected {
+  background: #cfeae7;
+  color: #075f5a
+}
+
+/* ===== v13: pharmacist top bar - animated pharmacy name ===== */
+.mv-pharmacy-title {
+  position: absolute !important;
+  left: 50% !important;
+  top: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  max-width: 38vw !important;
+  pointer-events: none !important;
+  text-align: center !important;
+  white-space: nowrap !important;
+  font-family: Arial, Helvetica, sans-serif !important;
+  font-weight: 800 !important;
+  font-size: 22px !important;
+  letter-spacing: .4px !important;
+  line-height: 1 !important
+}
+
+.mv-pharmacy-title .mv-ph-text {
+  background: linear-gradient(90deg, #078f86, #22d3ee, #0f766e, #14b8a6, #078f86);
+  background-size: 250% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  animation: mvPhGradient 4s linear infinite
+}
+
+.mv-pharmacy-title .mv-ph-caret {
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  margin-left: 3px;
+  vertical-align: -2px;
+  background: #078f86;
+  animation: mvPhBlink .8s steps(1) infinite
+}
+
+@keyframes mvPhGradient {
+  to {
+    background-position: -250% 0
+  }
+}
+
+@keyframes mvPhBlink {
+  50% {
+    opacity: 0
+  }
+}
+
+@media(max-width:900px) {
+  .mv-pharmacy-title {
+    display: none !important
+  }
+}
+
+
+/* =========================================================
+   Branch dropdown + floating buttons layering (Oct 2026 fix)
+   ---------------------------------------------------------
+   - Sidebar sits at a medium layer (9000)
+   - Floating OCR + Cart float ABOVE the sidebar (9500)
+   - Branch dropdown floats ABOVE the floating buttons (9600)
+   - When the branch menu is OPEN, OCR + Cart drop behind (400)
+     so the dropdown links are fully clickable.
+   ========================================================= */
+.sidebar {
+  z-index: 9000 !important;
+}
+
+.branch-nav {
+  position: relative;
+  z-index: 9600 !important;
+}
+
+.branch-menu {
+  z-index: 9601 !important;
+  position: relative;
+}
+
+.branch-menu.open {
+  z-index: 9601 !important;
+}
+
+/* Floating buttons visible above the sidebar */
+.mv-floating-ocr {
+  z-index: 9500 !important;
+}
+
+.mv-floating-cart {
+  z-index: 9500 !important;
+}
+
+/* When the branch menu is open: fade the floating buttons and push behind */
+body.branch-menu-open .mv-floating-ocr,
+body.branch-menu-open .mv-floating-cart {
+  z-index: 400 !important;
+  opacity: .30 !important;
+  pointer-events: none !important;
+  transition: opacity .2s ease !important;
+}
+
+
+/* =========================================================
+   Medicine conflict state on patient cards
+   ========================================================= */
+.content .grid .card .add-btn.conflict-disabled {
+  background: #dc2626 !important;
+  color: #fff !important;
+  cursor: not-allowed !important;
+  opacity: 1 !important;
+  font-weight: 800 !important;
+  letter-spacing: .3px;
+  box-shadow: 0 4px 10px rgba(220, 38, 38, .28);
+  animation: conflictPulse 2.4s ease-in-out infinite;
+}
+
+.content .grid .card .add-btn.conflict-disabled:hover {
+  background: #dc2626 !important;
+  transform: none !important;
+}
+
+@keyframes conflictPulse {
+
+  0%,
+  100% {
+    box-shadow: 0 4px 10px rgba(220, 38, 38, .28);
+  }
+
+  50% {
+    box-shadow: 0 6px 18px rgba(220, 38, 38, .48);
+  }
+}
+
+/* ===== Patient conflict display ===== */
+.content .grid .card .conflict-line {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  margin: 3px 0 3px;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.content .grid .card .conflict-flag {
+  font-size: 10.5px;
+  font-weight: 800;
+  padding: 3px 8px;
+  border-radius: 8px;
+  text-transform: uppercase;
+  letter-spacing: .3px;
+}
+
+.content .grid .card .conflict-flag.no {
+  background: #f1f5f9;
+  color: #64748b;
+  border: 1px solid #e2e8f0
+}
+
+.content .grid .card .conflict-flag.yes {
+  background: #fee2e2;
+  color: #b91c1c;
+  border: 1px solid #fca5a5
+}
+
+.content .grid .card .conflict-more-link {
+  background: transparent;
+  border: 0;
+  color: #dc2626;
+  font-weight: 800;
+  font-size: 11px;
+  cursor: pointer;
+  padding: 0;
+  text-decoration: underline;
+}
+
+.content .grid .card .conflict-more-link:hover {
+  color: #991b1b
+}
+
+.content .grid .card .add-btn.conflict-disabled {
+  background: #dc2626 !important;
+  color: #fff !important;
+  cursor: not-allowed !important;
+  opacity: 1 !important;
+  font-weight: 800 !important;
+  letter-spacing: .3px;
+  box-shadow: 0 4px 10px rgba(220, 38, 38, .28);
+  animation: conflictPulse 2.4s ease-in-out infinite;
+}
+
+.content .grid .card .add-btn.conflict-disabled:hover {
+  background: #dc2626 !important;
+  transform: none !important
+}
+
+@keyframes conflictPulse {
+
+  0%,
+  100% {
+    box-shadow: 0 4px 10px rgba(220, 38, 38, .28)
+  }
+
+  50% {
+    box-shadow: 0 6px 18px rgba(220, 38, 38, .48)
+  }
+}
+
+/* Branch dropdown layering fix */
+.sidebar {
+  z-index: 9000 !important
+}
+
+.branch-nav {
+  position: relative;
+  z-index: 9600 !important
+}
+
+.branch-menu {
+  z-index: 9601 !important;
+  position: relative
+}
+
+.mv-floating-ocr,
+.mv-floating-cart {
+  z-index: 9500 !important
+}
+
+body.branch-menu-open .mv-floating-ocr,
+body.branch-menu-open .mv-floating-cart {
+  z-index: 400 !important;
+  opacity: .30 !important;
+  pointer-events: none !important
+}

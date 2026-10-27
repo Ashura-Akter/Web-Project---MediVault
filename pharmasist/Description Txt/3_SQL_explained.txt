@@ -1,0 +1,70 @@
+MEDIVAULT - SQL / DATABASE EXPLAINED
+=====================================
+NOTE: MediVault-Full-Updated-Database-v10.sql was NOT in this upload, so I cannot
+describe the full schema. Below is only what the three uploaded PHP files prove
+about the tables. Upload the .sql file and I will explain every table.
+The PHP uses mysqli with prepared statements (bind_param), which protects against
+SQL injection.
+
+
+TABLES AND COLUMNS SEEN IN THE CODE
+-----------------------------------
+prescriptions
+   prescription_id, patient_id, file_path, file_type, prescription_number,
+   uploaded_at, status, reviewed_at, pharmacist_note
+   status values seen: PENDING_REVIEW, APPROVED, REJECTED
+
+reservations
+   reservation_id, reservation_number, patient_id, pharmacy_id, prescription_id,
+   status, accepted_by_pharmacist_id, accepted_at, cancellation_reason,
+   cancellation_note
+   status values seen: PENDING, AWAITING_RX, APPROVED, REJECTED
+   cancellation_reason values seen: PRESCRIPTION_NOT_VALID, OUT_OF_STOCK
+
+reservation_items
+   reservation_id, medicine_id, quantity      (what the patient asked for)
+
+medicines
+   medicine_id, medicine_name, generic_name, strength
+
+pharmacies
+   pharmacy_id, pharmacy_name
+
+pharmacist_profiles
+   user_id, pharmacy_id, approval_status ('APPROVED' required)
+   (links a pharmacist user to ONE pharmacy)
+
+inventory_batches
+   pharmacy_id, medicine_id, quantity_on_hand, reserved_quantity, expiry_date
+   available stock = quantity_on_hand - reserved_quantity, only where
+   expiry_date > today
+
+notifications (through add_notification() in queries.php; exact columns not seen)
+   fields passed: patient/user id, type, title, message, reservation_id, prescription_id
+   types seen: PRESCRIPTION_REJECTED, PRESCRIPTION_APPROVED
+
+cart (through add_restricted_medicine_to_cart(); table/columns not seen)
+
+
+MAIN QUERIES
+------------
+1. Worker queue (auto_ocr_worker.php): prescriptions JOIN reservations JOIN pharmacies
+   WHERE prescription PENDING_REVIEW and reservation AWAITING_RX, oldest first, LIMIT 20.
+2. Reserved items: reservation_items JOIN medicines WHERE reservation_id = ?
+3. Stock check: SUM(GREATEST(quantity_on_hand - reserved_quantity, 0)) from
+   inventory_batches for pharmacy + medicine, not expired.
+4. Status updates inside transactions (begin_transaction / commit / rollback) so
+   prescription, reservation, cart and notification change together or not at all.
+   The "AND status='PENDING_REVIEW'" / "AND status='AWAITING_RX'" in each UPDATE
+   stops the same request being processed twice.
+5. Viewer access check (prescription_view.php): reservations JOIN pharmacist_profiles
+   (user = logged-in pharmacist, APPROVED, same pharmacy) JOIN prescriptions JOIN pharmacies.
+
+FLOW OF A RESTRICTED-MEDICINE REQUEST (status changes)
+------------------------------------------------------
+Patient uploads prescription -> prescription PENDING_REVIEW, reservation AWAITING_RX
+  -> worker/OCR check ->
+     all found + in stock : both APPROVED, items go to patient cart
+     medicine not found   : both REJECTED (PRESCRIPTION_NOT_VALID)
+     out of stock         : both REJECTED (OUT_OF_STOCK)
+     file/OCR unreadable  : stays PENDING_REVIEW for manual pharmacist review

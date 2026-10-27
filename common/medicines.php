@@ -1,0 +1,8 @@
+<?php
+require_once __DIR__ . '/../database/queries.php';
+require_once __DIR__ . '/header.php';
+$search = trim($_GET['q'] ?? '');
+$pharmacyId = (int)($_GET['pharmacy_id'] ?? 0);
+$branches = getPharmacies($conn);
+$medicines = searchMedicinesByBranch($conn, $search, $pharmacyId);
+?><div class="card"><h1>Medicines</h1><p>Medicine availability is shown separately for each pharmacy branch.</p><form class="searchbar" method="get"><input name="q" value="<?=htmlspecialchars($search)?>" placeholder="Search medicine, generic name or company"><select name="pharmacy_id"><option value="0">All branches</option><?php foreach($branches as $b): ?><option value="<?=$b['pharmacy_id']?>" <?=$pharmacyId===$b['pharmacy_id']?'selected':''?>><?=htmlspecialchars($b['pharmacy_name'])?></option><?php endforeach; ?></select><button class="btn">Search</button></form><table class="table"><thead><tr><th>Medicine</th><th>Form</th><th>Company</th><th>Branch</th><th>Available</th><th>Price</th></tr></thead><tbody><?php if(!$medicines): ?><tr><td colspan="6">No medicine found.</td></tr><?php else: foreach($medicines as $m): $stock=(int)$m['available_stock']; ?><tr><td><strong><?=htmlspecialchars($m['medicine_name'])?></strong><br><small><?=htmlspecialchars($m['generic_name'] ?? '')?> <?=htmlspecialchars($m['strength'] ?? '')?></small></td><td><?=htmlspecialchars($m['dosage_form'])?></td><td><?=htmlspecialchars($m['company_name'])?></td><td><?=htmlspecialchars($m['pharmacy_name'])?></td><td class="stock <?=$stock>30?'available':($stock>0?'low':'none')?>"><?=$stock?></td><td><?=number_format((float)$m['unit_price'],2)?></td></tr><?php endforeach; endif; ?></tbody></table></div><?php require_once __DIR__ . '/footer.php'; ?>

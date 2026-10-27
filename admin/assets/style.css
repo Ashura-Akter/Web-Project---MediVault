@@ -1,0 +1,861 @@
+:root {
+    --bg: #ececec;
+    --card: #fff;
+    --text: #111827;
+    --muted: #70757d;
+    --teal: #078f86;
+    --teal-soft: #dff3ef;
+    --line: #ddd;
+    --red: #ef4444
+}
+
+* {
+    box-sizing: border-box
+}
+
+html,
+body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: Arial, Helvetica, sans-serif
+}
+
+body {
+    overflow-x: hidden
+}
+
+.brand-link {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    text-decoration: none;
+    color: #111
+}
+
+.brand-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 9px;
+    background: var(--teal);
+    color: #fff;
+    display: grid;
+    place-items: center;
+    font-size: 22px;
+    font-weight: 800
+}
+
+.brand {
+    font-size: 21px;
+    font-weight: 800
+}
+
+.brand-sub {
+    font-size: 13px;
+    color: #777
+}
+
+.profile-wrap {
+    position: relative
+}
+
+.profile-btn {
+    border: 0;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    cursor: pointer
+}
+
+.profile-btn b {
+    display: block;
+    text-align: left;
+    font-size: 14px
+}
+
+.profile-btn small {
+    display: block;
+    text-align: left;
+    color: var(--teal);
+    margin-top: 2px
+}
+
+.avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: var(--teal);
+    color: #fff;
+    display: grid;
+    place-items: center;
+    font-weight: 700
+}
+
+.profile-menu {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 50px;
+    width: 220px;
+    background: #fff;
+    border: 1px solid #e2e2e2;
+    border-radius: 14px;
+    box-shadow: 0 10px 28px rgba(0, 0, 0, .13);
+    padding: 7px;
+    z-index: 1100
+}
+
+.profile-menu.show {
+    display: block
+}
+
+.profile-menu a {
+    display: block;
+    padding: 11px 13px;
+    border-radius: 9px;
+    text-decoration: none;
+    color: #222;
+    font-weight: 600;
+    font-size: 13px
+}
+
+.profile-menu a:hover {
+    background: #f3f8f7;
+    color: var(--teal)
+}
+
+.profile-menu .logout-link {
+    color: #e33
+}
+
+.admin-layout {
+    min-height: 100vh
+}
+
+.admin-sidebar {
+    position: fixed;
+    left: 0;
+    top: 62px;
+    bottom: 0;
+    width: 220px;
+    background: #f8f8f8;
+    border-right: 1px solid var(--line);
+    padding: 18px 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    z-index: 900
+}
+
+.admin-sidebar nav {
+    display: flex;
+    flex-direction: column;
+    gap: 8px
+}
+
+.admin-sidebar nav a {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    min-height: 40px;
+    padding: 0 13px;
+    border-radius: 12px;
+    text-decoration: none;
+    color: #222;
+    font-size: 14px;
+    font-weight: 700;
+    white-space: nowrap
+}
+
+.admin-sidebar nav a:hover,
+.admin-sidebar nav a.active {
+    background: #cfeae7;
+    color: #075f5a
+}
+
+.admin-main {
+    margin-left: 220px;
+    padding: 84px 32px 60px;
+    max-width: 1500px
+}
+
+.sticky-tools {
+    position: sticky;
+    top: 62px;
+    background: var(--bg);
+    padding: 0 0 14px;
+    z-index: 100
+}
+
+.sticky-tools h1 {
+    font-size: 28px;
+    margin: 0 0 16px
+}
+
+.search-wrap {
+    position: relative
+}
+
+.search {
+    height: 48px;
+    border: 1px solid #d3d3d3;
+    border-radius: 12px;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0 16px
+}
+
+.search input {
+    border: 0;
+    outline: 0;
+    width: 100%;
+    font-size: 14px
+}
+
+.admin-suggest-box {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: calc(100% + 4px);
+    background: #fff;
+    border: 1px solid #d7e5e3;
+    border-radius: 12px;
+    box-shadow: 0 12px 28px rgba(7, 143, 134, .18);
+    z-index: 4200;
+    overflow: hidden
+}
+
+.admin-suggest-box[hidden] {
+    display: none
+}
+
+.admin-suggest-item {
+    padding: 11px 16px;
+    font-size: 14px;
+    color: #1f2d2b;
+    cursor: pointer;
+    transition: background .12s ease
+}
+
+.admin-suggest-item:hover,
+.admin-suggest-item.active {
+    background: #eaf6f4;
+    color: #057c74
+}
+
+.admin-suggest-item mark {
+    background: none;
+    color: #057c74;
+    font-weight: 800
+}
+
+.metrics {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+    margin: 0 0 20px
+}
+
+.metrics>a,
+.metrics>div {
+    background: #fff;
+    border-radius: 17px;
+    padding: 20px 23px;
+    min-height: 85px;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    cursor: pointer;
+    transition: box-shadow .18s ease, transform .18s ease
+}
+
+.metrics>a:hover {
+    box-shadow: 0 10px 24px rgba(7, 143, 134, .18);
+    transform: translateY(-3px)
+}
+
+.metrics strong {
+    display: block;
+    font-size: 26px
+}
+
+.metrics span {
+    font-size: 13px;
+    color: #555
+}
+
+.metrics .orange {
+    color: #f97316
+}
+
+.metrics .red {
+    color: #ef4444
+}
+
+.metrics .teal {
+    color: var(--teal)
+}
+
+.section-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 12px 0 14px
+}
+
+.section-head h2 {
+    margin: 0;
+    font-size: 20px
+}
+
+.section-head>span,
+.section-head div>span {
+    color: #777;
+    font-size: 13px
+}
+
+/* =========================================================
+   Medicine card (Admin) — clean layout, no price / no QTY.
+   ========================================================= */
+.medicine-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 18px
+}
+
+.medicine-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 18px;
+    min-height: 340px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, .04);
+    display: flex;
+    flex-direction: column
+}
+
+.medicine-card.inactive {
+    opacity: .78;
+    border: 1px dashed #94a3b8
+}
+
+.card-category {
+    display: block;
+    font-size: 12px;
+    color: var(--muted);
+    margin: 0 0 4px
+}
+
+.medicine-card h3 {
+    font-size: 17px;
+    line-height: 1.25;
+    margin: 0 0 4px;
+    color: #111827;
+    font-weight: 700
+}
+
+.medicine-card h3 small {
+    font-weight: 600;
+    color: #888;
+    font-size: 12px;
+    margin-left: 4px
+}
+
+.card-meta {
+    font-size: 12px;
+    color: var(--muted);
+    margin: 0 0 10px;
+    line-height: 1.3
+}
+
+.badges {
+    display: flex;
+    gap: 7px;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+    min-height: 24px
+}
+
+.stock,
+.low,
+.expiry,
+.pill,
+.inactive-badge,
+.restricted-badge {
+    font-size: 11px;
+    padding: 5px 9px;
+    border-radius: 9px;
+    line-height: 1;
+    display: inline-block;
+    white-space: nowrap
+}
+
+.stock {
+    background: #dff3ef;
+    color: #087f77
+}
+
+.low {
+    background: #fff0d6;
+    color: #b66a00
+}
+
+.expiry {
+    background: #e9f5ff;
+    color: #2580b5
+}
+
+.expiry.soon {
+    background: #ffe0dc;
+    color: #d44b43
+}
+
+.restricted-badge {
+    background: #fee2e2;
+    color: #dc2626;
+    border: 1px solid #fca5a5;
+    font-weight: 700
+}
+
+.inactive-badge {
+    background: #e2e8f0;
+    color: #475569;
+    border: 1px solid #cbd5e1;
+    font-weight: 700
+}
+
+.card-generic {
+    font-size: 12px;
+    color: #777;
+    margin: 0 0 8px
+}
+
+.card-desc {
+    font-size: 12px;
+    line-height: 1.4;
+    color: #777;
+    margin: 0 0 14px;
+    min-height: 50px;
+    max-height: 50px;
+    overflow: hidden
+}
+
+.card-actions {
+    margin-top: auto;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    padding-top: 8px
+}
+
+.card-actions form {
+    margin: 0
+}
+
+.card-actions button {
+    border: 0;
+    border-radius: 20px;
+    padding: 9px 24px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    color: #fff;
+    min-width: 92px
+}
+
+.card-actions button.danger {
+    background: #ef4444
+}
+
+.card-actions button.danger:hover {
+    background: #dc2626
+}
+
+.card-actions button.hide-btn {
+    background: #f59e0b
+}
+
+.card-actions button.hide-btn:hover {
+    background: #d97706
+}
+
+.card-actions button.add {
+    background: #16a34a
+}
+
+.card-actions button.add:hover {
+    background: #15803d
+}
+
+/* ========================================================= */
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    align-items: flex-start
+}
+
+.muted {
+    color: var(--muted);
+    font-size: 12px
+}
+
+.two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px
+}
+
+.two-col h2 {
+    font-size: 18px;
+    margin: 8px 0 15px
+}
+
+.alert {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 14px;
+    padding: 16px 20px;
+    margin-bottom: 12px
+}
+
+.low-bg {
+    background: #fff1bf
+}
+
+.expiry-bg {
+    background: #f4c2bd
+}
+
+.empty {
+    background: #fff;
+    border-radius: 14px;
+    padding: 28px;
+    text-align: center;
+    color: #777
+}
+
+.approval-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px
+}
+
+.approval-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 20px
+}
+
+.approval-card .pill {
+    background: var(--teal-soft);
+    color: #23776f
+}
+
+.approval-info {
+    background: #fff8cf;
+    border-radius: 10px;
+    padding: 13px;
+    margin: 14px 0;
+    line-height: 1.7;
+    font-size: 12px
+}
+
+.actions {
+    display: flex;
+    gap: 10px
+}
+
+.actions form {
+    flex: 1
+}
+
+.approve,
+.reject {
+    width: 100%;
+    border: 0;
+    border-radius: 22px;
+    padding: 10px;
+    font-weight: 700;
+    cursor: pointer
+}
+
+.approve {
+    background: var(--teal);
+    color: #fff
+}
+
+.reject {
+    background: #fee0df;
+    color: #d33
+}
+
+.role-filter {
+    display: flex;
+    gap: 6px;
+    background: #f7f7f7;
+    border: 1px solid #ddd;
+    padding: 5px;
+    border-radius: 22px
+}
+
+.role-filter a {
+    padding: 8px 11px;
+    border-radius: 17px;
+    text-decoration: none;
+    color: #333;
+    font-size: 11px
+}
+
+.role-filter a.active {
+    background: #fff;
+    box-shadow: 0 1px 3px #ddd
+}
+
+.user-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px
+}
+
+.user-row {
+    background: #fff;
+    border-radius: 14px;
+    padding: 16px 20px;
+    display: grid;
+    grid-template-columns: 1fr 200px auto;
+    align-items: center;
+    gap: 15px
+}
+
+.user-row.inactive {
+    opacity: .68;
+    border: 1px dashed #cbd5e1
+}
+
+.user-row b {
+    font-size: 14px
+}
+
+.user-row .pill {
+    margin-left: 8px;
+    background: var(--teal-soft);
+    color: #27756f
+}
+
+.user-row .pill-inactive {
+    background: #e2e8f0;
+    color: #475569
+}
+
+/* Pharmacist badge showing which pharmacy they belong to. */
+.user-row .pill-pharmacy {
+    background: #e6f7f4;
+    color: #078f86;
+    border: 1px solid #a7d4ce;
+    margin-left: 8px;
+    font-weight: 700;
+    white-space: nowrap
+}
+
+.user-actions {
+    display: flex;
+    gap: 8px;
+    align-items: center
+}
+
+.user-actions form {
+    margin: 0
+}
+
+.user-actions button {
+    border: 0;
+    border-radius: 20px;
+    padding: 8px 16px;
+    font-weight: 700;
+    cursor: pointer;
+    color: #fff
+}
+
+.user-actions .deactivate {
+    background: #f97316
+}
+
+.user-actions .activate {
+    background: #16a34a
+}
+
+.user-actions .danger {
+    background: #ef4444
+}
+
+.support-list {
+    display: flex;
+    flex-direction: column;
+    gap: 13px
+}
+
+.support-card {
+    background: #fff;
+    border-left: 4px solid var(--teal);
+    border-radius: 13px;
+    padding: 17px 19px
+}
+
+.support-card.read {
+    opacity: .72;
+    border-left-color: #aaa
+}
+
+.support-card p {
+    line-height: 1.5;
+    font-size: 13px;
+    margin: 12px 0
+}
+
+.flash {
+    padding: 11px 15px;
+    border-radius: 9px;
+    margin: 0 0 15px;
+    font-size: 13px
+}
+
+.flash.success {
+    background: #e0f5f1;
+    color: #176f68
+}
+
+.flash.error {
+    background: #ffe1dd;
+    color: #a32e27
+}
+
+@media(max-width:1050px) {
+    .medicine-grid {
+        grid-template-columns: repeat(3, 1fr)
+    }
+
+    .metrics {
+        grid-template-columns: repeat(2, 1fr)
+    }
+}
+
+@media(max-width:800px) {
+    .admin-sidebar {
+        width: 74px
+    }
+
+    .admin-sidebar nav a {
+        justify-content: center;
+        padding: 0
+    }
+
+    .admin-sidebar nav a span,
+    .logout {
+        font-size: 0
+    }
+
+    .admin-main {
+        margin-left: 74px;
+        padding: 85px 16px 40px
+    }
+
+    .medicine-grid {
+        grid-template-columns: repeat(2, 1fr)
+    }
+
+    .two-col,
+    .approval-grid {
+        grid-template-columns: 1fr
+    }
+
+    .user-row {
+        grid-template-columns: 1fr
+    }
+
+    .brand-sub {
+        display: none
+    }
+}
+
+@media(max-width:550px) {
+    .topbar {
+        padding: 0 13px
+    }
+
+    .profile-btn b,
+    .profile-btn small {
+        display: none
+    }
+
+    .metrics,
+    .medicine-grid {
+        grid-template-columns: 1fr
+    }
+
+    .admin-main {
+        padding-left: 10px;
+        padding-right: 10px
+    }
+
+    .sticky-tools h1 {
+        font-size: 23px
+    }
+
+    .role-filter {
+        overflow: auto
+    }
+
+    .section-head {
+        align-items: flex-start;
+        gap: 10px;
+        flex-direction: column
+    }
+}
+
+/* v13: medicine image on admin cards */
+.mv-med-img-box {
+    position: relative;
+    margin-bottom: 12px
+}
+
+.mv-med-img-box .mv-med-img {
+    margin: 0
+}
+
+.mv-img-tools {
+    position: absolute;
+    right: 8px;
+    bottom: 8px;
+    display: flex;
+    gap: 6px
+}
+
+.mv-img-change {
+    margin: 0
+}
+
+.mv-img-change label,
+.mv-img-url {
+    display: grid;
+    place-items: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, .92);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, .25);
+    cursor: pointer;
+    font-size: 15px;
+    border: 0
+}
+
+.mv-img-change label:hover,
+.mv-img-url:hover {
+    background: #fff;
+    transform: scale(1.08)
+}

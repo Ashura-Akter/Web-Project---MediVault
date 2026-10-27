@@ -1,0 +1,69 @@
+MEDIVAULT - PHARMACIST MODULE : FRONTEND EXPLAINED
+===================================================
+Frontend = what the browser shows: HTML, CSS, JavaScript.
+
+NOTE: views/ and assets/ arrived EMPTY in the upload. Everything marked [MAP] is
+from the file map inside medivaultpharmasist.php. prescription_view.php was
+fully uploaded so it is explained in detail. Send the folder files for line-by-line help.
+
+
+WHERE THE FRONTEND FILES ARE
+----------------------------
+pharmasist/views/layout/    page skeleton
+    pharmacist_head.php           <html>, <head>, <body> opening
+    pharmacist_sidebar.php        left sidebar (tabs menu)
+    pharmacist_main_content.php   search bar + KPI cards + active tab
+    pharmacist_footer.php         viewer modal, JS config, scripts, </body></html>
+pharmasist/views/modals/    popups (hidden until opened)
+    pharmacist_modal_add_stock.php
+    pharmacist_modal_confirmations.php
+    pharmacist_modal_cancel_reservation.php
+    pharmacist_modal_reject_request.php   (reject reasons popup)
+    rx_viewer                              (prescription viewer modal)
+pharmasist/views/partials/
+    pharmacist_search_bar.php
+    pharmacist_kpi_cards.php       (total medicine, low stock, expiring, reserved)
+pharmasist/views/tabs/
+    pharmacist_tab_router.php      picks which tab file to show
+    one file per tab: dashboard, in_stock, low_stock, out_of_stock, expiring_soon,
+    pending, approved, rejected, reservations, reservation_history, order_history
+pharmasist/assets/css/   pharmacist_dashboard.css, pharmacist_rx_viewer.css
+pharmasist/assets/js/    pharmacist_dashboard_core.js, pharmacist_deadline_picker.js,
+                         pharmacist_live_search.js, pharmacist_live_counts.js,
+                         pharmacist_rx_viewer.js
+../common/topbar.php, ../common/common.css   shared top bar (logo, bell, profile)
+pharmasist/prescription_view.php  (HTML + CSS at the bottom of the file)
+
+
+HOW THE PAGE IS BUILT (order in medivaultpharmasist.php)  [READ]
+-----------------------------------------------------------------
+ head -> modals (add stock, confirmations, cancel, reject) -> common topbar ->
+ sidebar -> main content -> footer (viewer modal + scripts).
+The backend has already prepared all variables (active tab, KPI numbers,
+notifications, medicine list) so these view files mostly just print them.
+
+JavaScript roles  [MAP]
+- core            general dashboard behaviour (open/close modals etc.)
+- deadline_picker date/time picker for reservation deadlines
+- live_search     calls ?suggest=1 and shows medicine suggestions while typing
+- live_counts     calls ?counts=1 and refreshes the counters without reload
+- rx_viewer       opens the prescription viewer
+
+
+prescription_view.php - HTML PART  [READ]
+-----------------------------------------
+Dark page split in two columns (CSS grid, 1fr + 360px; stacks on screens under 880px).
+LEFT  : an <iframe> showing the real prescription (src = same page with &raw=1).
+RIGHT : OCR result panel:
+   - header: reservation number + badges ("OCR ran" / "OCR unavailable",
+     "Awaiting decision" or the current status)
+   - red error box if OCR failed (pharmacist can still judge the image)
+   - green list  "Detected in prescription"  (requested and found)
+   - red list    "NOT found in prescription" (requested, not found)
+   - orange list "Other medicines seen (not requested)"
+   - red notice if OCR ran but recognised nothing
+   - collapsible "View raw OCR text"
+   - footer note: approve/reject from the Pending tab
+All values are printed with htmlspecialchars() so text from OCR or the database
+cannot inject HTML/JS (XSS protection).
+The <script> at the bottom is empty on purpose: viewer is read-only.
